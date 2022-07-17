@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-user.dto';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,8 +19,8 @@ export class UsersService {
       id: uuidv4(),
       version: 1,
       createdAt: +Date.now(),
-      updatedAt: +Date.now()
-    } 
+      updatedAt: +Date.now(),
+    };
     const newUser = new User(data);
     this.db.users.push(newUser);
     return newUser;
@@ -30,13 +34,15 @@ export class UsersService {
     const user = this.db.users.find((u) => u.id === id);
     if (!user) {
       throw new NotFoundException('User Not Found');
-    }
-    else {
+    } else {
       return user;
     }
   }
 
-  async update(id: string, updatePasswordDto: UpdatePasswordDto): Promise<User> {
+  async update(
+    id: string,
+    updatePasswordDto: UpdatePasswordDto,
+  ): Promise<User> {
     const user = this.db.users.find((u) => u.id === id);
     if (!user) {
       throw new NotFoundException('User Not Found');
@@ -54,8 +60,7 @@ export class UsersService {
     const user = this.db.users.find((u) => u.id === id);
     if (!user) {
       throw new NotFoundException('User Not Found');
-    }
-    else {
+    } else {
       this.db.users = this.db.users.filter((u) => u.id !== id);
     }
   }

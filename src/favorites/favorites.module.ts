@@ -9,8 +9,12 @@ import { AlbumsService } from 'src/albums/albums.service';
 import { TracksService } from 'src/tracks/tracks.service';
 
 @Module({
-  imports: [forwardRef(() => ArtistsModule), forwardRef(() => TracksModule), forwardRef(() => AlbumsModule)],
+  imports: [
+    forwardRef(() => ArtistsModule),
+    forwardRef(() => TracksModule),
+    forwardRef(() => AlbumsModule),
+  ],
   controllers: [FavoritesController],
-  providers: [FavoritesService, ArtistsService, AlbumsService, TracksService]
+  providers: [FavoritesService, ArtistsService, AlbumsService, TracksService],
 })
 export class FavoritesModule {}

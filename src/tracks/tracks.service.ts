@@ -1,4 +1,9 @@
-import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { InMemoryDB } from 'src/db';
 import { CreateTrackDto } from './dto/create-track.dto';
@@ -17,13 +22,14 @@ export class TracksService {
     private albumsService: AlbumsService,
     @Inject(forwardRef(() => FavoritesService))
     private favoritesService: FavoritesService,
-    private db: InMemoryDB) {}
+    private db: InMemoryDB,
+  ) {}
 
   async create(createTrackDto: CreateTrackDto): Promise<Track> {
     const newTrack: Track = {
       id: uuidv4(),
       ...createTrackDto,
-    }
+    };
     this.db.tracks.push(newTrack);
     return newTrack;
   }
@@ -36,18 +42,19 @@ export class TracksService {
     const track: Track = this.db.tracks.find((t) => t.id === id);
     if (!track) {
       throw new NotFoundException('Track Not Found');
-    }
-    else {
+    } else {
       return track;
     }
   }
 
-  async update(id: string, updateTrackDto: UpdateTrackDto): Promise<Track | undefined> {
+  async update(
+    id: string,
+    updateTrackDto: UpdateTrackDto,
+  ): Promise<Track | undefined> {
     const track: Track = this.db.tracks.find((t) => t.id === id);
     if (!track) {
       throw new NotFoundException('Track Not Found');
-    }
-    else {
+    } else {
       Object.assign(track, updateTrackDto);
       return track;
     }
@@ -55,14 +62,14 @@ export class TracksService {
 
   async remove(id: string): Promise<void> {
     const index: number = this.db.tracks.findIndex((t) => t.id === id);
-    const trackInFavs: number = this.db.favorites.tracks.findIndex((i) => i === id);
+    const trackInFavs: number = this.db.favorites.tracks.findIndex(
+      (i) => i === id,
+    );
     if (index === -1) {
       throw new NotFoundException('Track Not Found');
-    }
-    else {
+    } else {
       this.db.tracks.splice(index, 1);
       this.db.favorites.tracks.splice(trackInFavs, 1);
     }
   }
 }
-

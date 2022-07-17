@@ -8,7 +8,7 @@
 ## Downloading
 
 ```
-git clone {repository URL}
+git clone https://github.com/nataliepshen/nodejs2022Q2-service.git
 ```
 
 ## Installing NPM modules
@@ -16,7 +16,9 @@ git clone {repository URL}
 ```
 npm install
 ```
-
+```
+change .env.example to .env
+```
 ## Running application
 
 ```
