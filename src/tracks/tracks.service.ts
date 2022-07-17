@@ -6,6 +6,7 @@ import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
 import { ArtistsService } from 'src/artists/artists.service';
 import { AlbumsService } from 'src/albums/albums.service';
+import { FavoritesService } from 'src/favorites/favorites.service';
 
 @Injectable()
 export class TracksService {
@@ -14,6 +15,8 @@ export class TracksService {
     private artistsService: ArtistsService,
     @Inject(forwardRef(() => AlbumsService))
     private albumsService: AlbumsService,
+    @Inject(forwardRef(() => FavoritesService))
+    private favoritesService: FavoritesService,
     private db: InMemoryDB) {}
 
   async create(createTrackDto: CreateTrackDto): Promise<Track> {
@@ -52,11 +55,13 @@ export class TracksService {
 
   async remove(id: string): Promise<void> {
     const index: number = this.db.tracks.findIndex((t) => t.id === id);
+    const trackInFavs: number = this.db.favorites.tracks.findIndex((i) => i === id);
     if (index === -1) {
       throw new NotFoundException('Track Not Found');
     }
     else {
       this.db.tracks.splice(index, 1);
+      this.db.favorites.tracks.splice(trackInFavs, 1);
     }
   }
 }

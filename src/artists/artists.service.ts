@@ -6,6 +6,7 @@ import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
 import { TracksService } from 'src/tracks/tracks.service';
 import { AlbumsService } from 'src/albums/albums.service';
+import { FavoritesService } from 'src/favorites/favorites.service';
 
 @Injectable()
 export class ArtistsService {
@@ -14,6 +15,8 @@ export class ArtistsService {
     private tracksService: TracksService,
     @Inject(forwardRef(() => AlbumsService))
     private albumsService: AlbumsService,
+    @Inject(forwardRef(() => FavoritesService))
+    private favoritesService: FavoritesService,
     private db: InMemoryDB) {}
 
   async create(createArtistDto: CreateArtistDto): Promise<Artist> {
@@ -52,11 +55,13 @@ export class ArtistsService {
 
   async remove(id: string): Promise<void> {
     const index: number = this.db.artists.findIndex((a) => a.id === id);
+    const artistInFavs: number = this.db.favorites.artists.findIndex((i) => i === id);
     if (index === -1) {
       throw new NotFoundException('Artist Not Found');
     }
     else {
       this.db.artists.splice(index, 1);
+      this.db.favorites.artists.splice(artistInFavs, 1);
       this.db.tracks.forEach((track) => {
         if (track.artistId === id) {
           track.artistId = null;

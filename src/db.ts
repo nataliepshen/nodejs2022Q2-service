@@ -1,6 +1,7 @@
 import { Global, Injectable, Module } from "@nestjs/common";
 import { Album } from "./albums/entities/album.entity";
 import { Artist } from "./artists/entities/artist.entity";
+import { Favorites } from "./favorites/entities/favorites.entity";
 import { Track } from "./tracks/entities/track.entity";
 import { User } from "./users/entities/user.entity";
 
@@ -10,6 +11,11 @@ export class InMemoryDB {
     tracks: Track[] = [];
     artists: Artist[] = [];
     albums: Album[] = [];
+    favorites: Favorites = {
+        artists: [],
+        albums: [],
+        tracks: []
+    };
 }
 
 @Global()
