@@ -1,13 +1,20 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { InMemoryDB } from 'src/db';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
+import { ArtistsService } from 'src/artists/artists.service';
+import { AlbumsService } from 'src/albums/albums.service';
 
 @Injectable()
 export class TracksService {
-  constructor(private db: InMemoryDB) {}
+  constructor(
+    @Inject(forwardRef(() => ArtistsService))
+    private artistsService: ArtistsService,
+    @Inject(forwardRef(() => AlbumsService))
+    private albumsService: AlbumsService,
+    private db: InMemoryDB) {}
 
   async create(createTrackDto: CreateTrackDto): Promise<Track> {
     const newTrack: Track = {
