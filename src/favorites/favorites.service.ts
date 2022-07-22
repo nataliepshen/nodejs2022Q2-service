@@ -10,7 +10,7 @@ import { AlbumsService } from 'src/albums/albums.service';
 import { Album } from 'src/albums/entities/album.entity';
 import { ArtistsService } from 'src/artists/artists.service';
 import { Artist } from 'src/artists/entities/artist.entity';
-import { InMemoryDB } from 'src/db';
+import { InMemoryDB } from 'src/db/db';
 import { Track } from 'src/tracks/entities/track.entity';
 import { TracksService } from 'src/tracks/tracks.service';
 

@@ -1,9 +1,9 @@
 import { Global, Injectable, Module } from '@nestjs/common';
-import { Album } from './albums/entities/album.entity';
-import { Artist } from './artists/entities/artist.entity';
-import { Favorites } from './favorites/entities/favorites.entity';
-import { Track } from './tracks/entities/track.entity';
-import { User } from './users/entities/user.entity';
+import { Album } from '../albums/entities/album.entity';
+import { Artist } from '../artists/entities/artist.entity';
+import { Favorites } from '../favorites/entities/favorites.entity';
+import { Track } from '../tracks/entities/track.entity';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class InMemoryDB {

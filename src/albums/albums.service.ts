@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { ArtistsService } from 'src/artists/artists.service';
-import { InMemoryDB } from 'src/db';
+import { InMemoryDB } from 'src/db/db';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
