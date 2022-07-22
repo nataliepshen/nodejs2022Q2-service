@@ -1,25 +1,39 @@
 # Home Library Service
 
-## Prerequisites
+<!-- ## Prerequisites
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager. -->
 
 ## Downloading
-
 ```
 git clone https://github.com/nataliepshen/nodejs2022Q2-service.git
 ```
-
 ## Installing NPM modules
-
+```
+git checkout docker
+```
 ```
 npm install
 ```
 ```
 change .env.example to .env
 ```
-## Running application
+## Running
+```npm run start:prod``` - run in prod mode
+go to http://localhost:4000/doc in your browser and use swagger api
+
+```npm run test``` - run all tests
+## Docker Compose
+```
+docker-compose up -d --build
+```
+## Docker scan
+```
+npm run scan
+```
+
+<!-- ## Running application
 
 ```
 npm start
@@ -71,4 +85,4 @@ npm run format
 
 Press <kbd>F5</kbd> to debug.
 
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+For more information, visit: https://code.visualstudio.com/docs/editor/debugging -->
