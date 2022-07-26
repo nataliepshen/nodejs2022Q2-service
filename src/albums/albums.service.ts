@@ -1,27 +1,16 @@
 import {
-  forwardRef,
-  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
-import { ArtistsService } from 'src/artists/artists.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
-import { TracksService } from 'src/tracks/tracks.service';
-import { FavoritesService } from 'src/favorites/favorites.service';
 import { PrismaService } from 'src/db/prisma.service';
 
 @Injectable()
 export class AlbumsService {
   constructor(
-    @Inject(forwardRef(() => ArtistsService))
-    private artistsService: ArtistsService,
-    @Inject(forwardRef(() => TracksService))
-    private tracksService: TracksService,
-    @Inject(forwardRef(() => FavoritesService))
-    private favoritesService: FavoritesService,
     private prisma: PrismaService,
   ) {}
 
@@ -73,12 +62,5 @@ export class AlbumsService {
         id
       }
     });
-      // this.db.albums.splice(index, 1);
-      // this.db.favorites.albums.splice(albumInFavs, 1);
-      // this.db.tracks.forEach((track) => {
-      //   if (track.albumId === id) {
-      //     track.albumId = null;
-      //   }
-      // });
   }
 }
