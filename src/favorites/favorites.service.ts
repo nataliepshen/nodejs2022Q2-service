@@ -8,9 +8,7 @@ import { validate } from 'uuid';
 
 @Injectable()
 export class FavoritesService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<any> {
     return (
@@ -68,13 +66,13 @@ export class FavoritesService {
     } else {
       await this.prisma.favorites.update({
         where: {
-          id: favsId
+          id: favsId,
         },
         data: {
           [`${path}s`]: {
-            connect: { id: id }
-          }
-        }
+            connect: { id: id },
+          },
+        },
       });
       return `Entity was successfully added to Favorites`;
     }
@@ -89,9 +87,9 @@ export class FavoritesService {
       },
       data: {
         [`${path}s`]: {
-          disconnect: { id: id }
-        }
-      }
+          disconnect: { id: id },
+        },
+      },
     });
   }
 }

@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
@@ -10,16 +7,14 @@ import { PrismaService } from 'src/db/prisma.service';
 
 @Injectable()
 export class TracksService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(createTrackDto: CreateTrackDto): Promise<Track> {
     const newTrack = await this.prisma.track.create({
       data: {
         id: uuidv4(),
         ...createTrackDto,
-      }
+      },
     });
     return newTrack;
   }
@@ -32,7 +27,7 @@ export class TracksService {
     const track = await this.prisma.track.findUnique({
       where: {
         id,
-      }
+      },
     });
     if (!track) {
       throw new NotFoundException('Track Not Found');
@@ -48,7 +43,7 @@ export class TracksService {
     await this.findOne(id);
     const updateTrack = await this.prisma.track.update({
       where: {
-        id
+        id,
       },
       data: updateTrackDto,
     });
@@ -59,8 +54,8 @@ export class TracksService {
     await this.findOne(id);
     await this.prisma.track.delete({
       where: {
-        id
+        id,
       },
     });
-  } 
+  }
 }

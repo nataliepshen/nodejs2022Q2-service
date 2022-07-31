@@ -17,13 +17,13 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = await this.prisma.user.create({
       data: {
-      ...createUserDto,
-      id: uuidv4(),
-      version: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      }
-    })
+        ...createUserDto,
+        id: uuidv4(),
+        version: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
     return plainToInstance(User, user);
   }
 
@@ -35,7 +35,7 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: {
         id,
-      }
+      },
     });
     if (!user) {
       throw new NotFoundException('User Not Found');
@@ -55,14 +55,14 @@ export class UsersService {
     }
     const updateUser = await this.prisma.user.update({
       where: {
-        id
+        id,
       },
       data: {
         password: newPassword,
         updatedAt: new Date(),
         version: user.version + 1,
-      }
-    })
+      },
+    });
     return plainToInstance(User, updateUser);
   }
 
@@ -70,8 +70,8 @@ export class UsersService {
     await this.findOne(id);
     await this.prisma.user.delete({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 }
