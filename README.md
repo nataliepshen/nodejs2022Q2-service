@@ -11,7 +11,7 @@ git clone https://github.com/nataliepshen/nodejs2022Q2-service.git
 ```
 ## Installing NPM modules
 ```
-git checkout docker
+git checkout postgres
 ```
 ```
 npm install
@@ -20,18 +20,11 @@ npm install
 change .env.example to .env
 ```
 ## Running
-```npm run start:prod``` - run in prod mode
-go to http://localhost:4000/doc in your browser and use swagger api
+1. ```npm run docker``` - run the app
 
-```npm run test``` - run all tests
-## Docker Compose
-```
-docker-compose up -d --build
-```
-## Docker scan
-```
-npm run scan
-```
+2. go to http://localhost:4000/doc in your browser and use swagger api
+
+3. ```npm run test``` - run all tests
 
 <!-- ## Running application
 
