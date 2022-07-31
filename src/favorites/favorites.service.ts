@@ -13,35 +13,36 @@ export class FavoritesService {
   ) {}
 
   async findAll(): Promise<any> {
-    const favorites = await this.prisma.favorites.findFirst({
-      select: {
-        artists: {
-          select: {
-            id: true,
-            name: true,
-            grammy: true,
+    return (
+      (await this.prisma.favorites.findFirst({
+        select: {
+          artists: {
+            select: {
+              id: true,
+              name: true,
+              grammy: true,
+            },
+          },
+          albums: {
+            select: {
+              id: true,
+              name: true,
+              year: true,
+              artistId: true,
+            },
+          },
+          tracks: {
+            select: {
+              id: true,
+              name: true,
+              artistId: true,
+              albumId: true,
+              duration: true,
+            },
           },
         },
-        albums: {
-          select: {
-            id: true,
-            name: true,
-            year: true,
-            artistId: true,
-          },
-        },
-        tracks: {
-          select: {
-            id: true,
-            name: true,
-            artistId: true,
-            albumId: true,
-            duration: true,
-          },
-        },
-      },
-    });
-    return favorites;
+      })) || { artists: [], albums: [], tracks: [] }
+    );
   }
 
   async getFavoritesId(): Promise<string> {

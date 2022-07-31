@@ -6,10 +6,9 @@ services:
       dockerfile: Dockerfile
       context: .
       target: development
-    restart: unless-stopped
+    restart: always
     volumes:
       - .:/app
-      - /app/node_modules
     env_file:
       - .env
     environment:
@@ -18,16 +17,17 @@ services:
       - nest-app-postgres
     depends_on:
       - postgres
-    command: npm run start:dev
     ports:
     - ${PORT}:${PORT}
+    command: npm run start:dev
+
   postgres:
     container_name: postgres
     build:
-      dockerfile: /src/db/Dockerfile
+      dockerfile: ./src/db/Dockerfile
     networks:
       - nest-app-postgres
-    restart: unless-stopped
+    restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -37,8 +37,11 @@ services:
       - ${DB_PORT}:${DB_PORT}
     volumes:
       - pgdata:/var/lib/postgresql/data
+
 networks:
   nest-app-postgres:
+
 volumes:
   pgdata:
+  app:
 

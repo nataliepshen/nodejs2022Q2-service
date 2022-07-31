@@ -19,4 +19,4 @@ USER node
 FROM node:14-alpine AS production
 COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/dist ./dist
-CMD [ "node", "dist/main.js" ]
+CMD [ "node", "dist/main" ]
