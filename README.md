@@ -4,7 +4,7 @@
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager. -->
-
+image.png
 ## Downloading
 ```
 git clone https://github.com/nataliepshen/nodejs2022Q2-service.git
@@ -26,7 +26,7 @@ go to http://localhost:4000/doc in your browser and use swagger api
 ```npm run test``` - run all tests
 ## Docker Compose
 ```
-docker-compose up -d --build
+docker-compose up --build -V
 ```
 ## Docker scan
 ```
