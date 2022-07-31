@@ -4,7 +4,7 @@
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager. -->
-image.png
+![image](https://user-images.githubusercontent.com/105879823/182038708-d3efd3f5-1750-4af1-9173-e3f4353674c1.png)
 ## Downloading
 ```
 git clone https://github.com/nataliepshen/nodejs2022Q2-service.git
