@@ -3,13 +3,14 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/db/prisma.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import * as argon from 'argon2';
+import { Tokens } from './types/tokens.type';
 
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService,
     private jwtService: JwtService) {}
 
-  async signup(createUserDto: CreateUserDto) {
+  async signup(createUserDto: CreateUserDto): Promise<string> {
     const hash = await argon.hash(createUserDto.password);
     const user = await this.prisma.user.create({
       data: {
@@ -23,7 +24,7 @@ export class AuthService {
     return 'Signup was successful';
   }
 
-  async login(createUserDto: CreateUserDto) {
+  async login(createUserDto: CreateUserDto): Promise<Tokens> {
     const user = await this.prisma.user.findFirst({
       where: {
         login: createUserDto.login,
@@ -39,7 +40,7 @@ export class AuthService {
     return tokens;
   }
 
-  async updateRtHash(userId: string, rt:string) {
+  async updateRtHash(userId: string, rt:string): Promise<void> {
     const hash = await argon.hash(rt);
     await this.prisma.user.update({
       where: {
@@ -51,7 +52,7 @@ export class AuthService {
     });
   }
 
-  async getTokens(userId: string, login: string) {
+  async getTokens(userId: string, login: string): Promise<Tokens> {
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(
         {
