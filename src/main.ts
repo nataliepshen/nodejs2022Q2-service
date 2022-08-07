@@ -18,7 +18,7 @@ async function bootstrap() {
   );
 
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-
+  
   const DOC_API = await readFile(resolve(cwd(), 'doc', 'api.yaml'), 'utf-8');
   const document = parse(DOC_API);
 
