@@ -11,7 +11,7 @@ git clone https://github.com/nataliepshen/nodejs2022Q2-service.git
 ```
 ## Installing NPM modules
 ```
-git checkout postgres
+git checkout auth
 ```
 ```
 npm install
@@ -24,7 +24,7 @@ change .env.example to .env
 
 2. go to http://localhost:4000/doc in your browser and use swagger api
 
-3. ```npm run test``` - run all tests
+3. ```npm run test:auth``` - run all tests with authorization
 
 <!-- ## Running application
 
