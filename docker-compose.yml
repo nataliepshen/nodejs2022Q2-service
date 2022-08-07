@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  api:
+    container_name: nest-app
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    restart: always
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DB_URL}
+    networks:
+      - nest-app-postgres
+    depends_on:
+      - postgres
+    ports:
+    - ${PORT}:${PORT}
+    command: npm run start:dev
+
+  postgres:
+    container_name: postgres
+    build:
+      dockerfile: ./src/db/Dockerfile
+    networks:
+      - nest-app-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PG_DATA: /var/lib/postgresql/data
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+networks:
+  nest-app-postgres:
+    driver: bridge
+
+volumes:
+  pgdata:
+  app:
+
