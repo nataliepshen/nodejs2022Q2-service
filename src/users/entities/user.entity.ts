@@ -15,6 +15,8 @@ export class User {
   @Transform(({ value }) => new Date(value).getTime())
   updatedAt: Date;
 
+  hashedRt: string;
+
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);
   }
